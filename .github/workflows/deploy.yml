@@ -4,42 +4,28 @@ on:
   push:
     branches: [ master ]
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
+    permissions:
+      contents: write    # 添加这个权限设置
+      
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
+    - uses: actions/checkout@v3    # 升级到 v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'npm'
+    - name: Setup Node.js
+      uses: actions/setup-node@v3    # 升级到 v3
+      with:
+        node-version: '20'
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install    # 改用 npm install 替代 npm ci
 
-      - name: Build
-        run: npm run build && touch ./out/.nojekyll
+    - name: Build and Export
+      run: npm run deploy
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          path: 'out'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./out
