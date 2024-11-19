@@ -1,0 +1,26 @@
+{
+  "name": "tkt-dashboard",
+  "version": "1.0.0",
+  "description": "TKT Test Results Dashboard",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "deploy": "next build && next export && touch out/.nojekyll"
+  },
+  "dependencies": {
+    "@ant-design/charts": "^1.4.2",
+    "@ant-design/icons": "^4.6.0",
+    "@ant-design/pro-table": "^3.6.1",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "clsx": "^2.0.0",
+    "lucide-react": "^0.263.1",
+    "next": "^13.1.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "recharts": "^2.10.1",
+    "tailwind-merge": "^2.0.0"
+  }
+}
